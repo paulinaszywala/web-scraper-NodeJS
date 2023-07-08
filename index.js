@@ -15,8 +15,9 @@ const url = `${baseURL}/ranking/vod/film`
 // Array of VOD platforms
 const listOfPlatforms = []
 
-// Sending a HTTP request via axios package
+const actualYear = new Date().getFullYear()
 
+// Sending a HTTP request via axios package
 axios(url)
     .then(response => {
         // If the promise is resolved -> code of the callback function will be executed
@@ -38,7 +39,7 @@ axios(url)
                 vodTitle.includes('Disney+')
             ) {
                 const vodHref = $(this).find('a').attr('href')
-                const vodURL = `${baseURL}${vodHref}/2023`
+                const vodURL = `${baseURL}${vodHref}/${actualYear}`
 
                 // Merged URL is pushed to the array of VOD Platforms
                 listOfPlatforms.push(vodURL)
@@ -88,7 +89,7 @@ axios(url)
                     const platform = response.config.url
                         .replace(baseURL, '')
                         .replace('/ranking/vod/', '')
-                        .replace('/film/2023', '')
+                        .replace(`/film/${actualYear}`, '')
 
                     vodPlatforms[platform] = allMovies
                 })
